@@ -1,0 +1,356 @@
+/* ===================== */
+/* 🔹 Reset básico */
+/* ===================== */
+* {
+  margin: 0;              /* Elimina márgenes predeterminados de los navegadores */
+  padding: 0;             /* Elimina rellenos predeterminados */
+  box-sizing: border-box; /* Hace que el padding y borde se incluyan dentro del ancho/alto */
+}
+
+body {
+  font-family: 'Courier New', monospace; /* Fuente general de la página */
+  background-color: #f8d9e0;             /* Color de fondo rosado suave */
+}
+
+/* ===================== */
+/* 🔹 Contenedor principal con Grid */
+/* ===================== */
+.container {
+  display: grid; /* Usa CSS Grid para dividir la página en áreas */
+  flex-wrap: nowrap;
+  /* Define las áreas de la página: 
+     - header arriba en toda la fila
+     - sidebar a la izquierda y content a la derecha
+     - footer abajo en toda la fila */
+  grid-template-areas: 
+    "header header"
+    "sidebar content"
+    "footer footer";
+    
+  /* Sidebar ocupa 20% y content se expande al resto */
+  grid-template-columns: 20% 1fr; 
+  grid-template-rows: auto 1fr auto; /* Filas: header automático, content expansible, footer automático */
+  
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  gap: 0.5rem;   /* Espaciado entre cada área del grid */
+}
+
+/* ===================== */
+/* 🔹 Secciones principales */
+/* ===================== */
+.header {
+  grid-area: header;             /* Ubicación en el grid */
+  background-color: #7a1c7a;     /* Fondo morado oscuro */
+  color: white;                  /* Texto blanco */
+  text-align: center;            /* Texto centrado */
+  padding: 1rem;                 /* Espaciado interno */
+}
+
+.sidebar {
+  grid-area: sidebar;            /* Barra lateral izquierda */
+  background-color: #d78ac4;     /* Fondo morado claro */
+  padding: 1rem;                 /* Espaciado interno */
+  color: white;                  /* Texto blanco */
+
+}
+
+
+/* Estilo para la lista de navegación (quita los puntos y espacios por defecto) */
+.sidebar ul {
+  list-style: none; /* quita los puntos de lista */
+  padding: 0;
+  margin: 0;
+}
+
+/* Estilo para cada ítem de la lista */
+.sidebar li {
+  margin-bottom: 10px; /* espacio entre los enlaces */
+}
+
+/* Estilo base para los enlaces */
+.sidebar a {
+  color: white;               /* texto blanco */
+  text-decoration: none;      /* quita el subrayado */
+  display: block;             /* hace que el enlace ocupe toda la línea */
+  padding: 8px 12px;          /* espacio interno del botón/enlace */
+  border-radius: 5px;         /* bordes redondeados */
+  transition: background-color 0.3s ease; /* transición suave al hacer hover */
+}
+
+/* Estilo cuando el mouse pasa por encima del enlace */
+.sidebar a:hover {
+  background-color: #8b2c84; /* cambia el fondo al pasar el mouse */
+  color: #fff;               /* asegura que el texto se mantenga blanco */
+}
+
+
+
+.content {
+  grid-area: content;            /* Área principal de contenido */
+  padding: 1rem;                 /* Espaciado interno */
+  display: flex;                 /* Uso de flexbox */
+  justify-content: center;       /* Centra horizontalmente las cards */
+  align-items: flex-start;       /* Alinea arriba verticalmente */
+}
+
+/* ===================== */
+/* 🔹 Tarjetas internas */
+/* ===================== */
+.cards {
+  display: grid;                      /* Distribuye las tarjetas en rejilla */
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+  gap: 1rem;                          /* Espacio entre tarjetas */
+  width: 100%;                        /* Ocupa todo el ancho */
+  height: 80%;                        /* Altura relativa del contenedor */
+}
+
+.card {
+  background-color: #fbd9e8;          /* Fondo rosado claro */
+  border: 2px solid #d78ac4;          /* Borde morado */
+  border-radius: 20px;                /* Bordes redondeados */
+  padding: 1rem;                      /* Espaciado interno */
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1); /* Sombra ligera para efecto flotante */
+  min-height: 250px;                  /* Altura mínima de las tarjetas */
+}
+
+.card h2 {
+  margin-bottom: 0.5rem; /* Espaciado debajo del título */
+}
+
+/* ===================== */
+/* 🔹 Botón */
+/* ===================== */
+button {
+  width: 100%;              /* Botón ocupa todo el ancho de la tarjeta */
+  padding: 1rem;            /* Espaciado interno grande */
+  border: none;             /* Sin borde por defecto */
+  border-radius: 20px;      /* Bordes redondeados */
+  background-color: #c34cb6;/* Fondo morado intenso */
+  color: white;             /* Texto blanco */
+  font-weight: bold;        /* Texto en negrita */
+  cursor: pointer;          /* Cursor tipo mano al pasar */
+}
+button:hover {
+  background-color: #9e3a93; /* Color más oscuro al pasar el mouse */
+}
+
+/* ===================== */
+/* 🔹 Footer */
+/* ===================== */
+.footer {
+  grid-area: footer;           /* Ubicación en el grid */
+  background-color: #7a1c7a;   /* Fondo morado oscuro */
+  color: white;                /* Texto blanco */
+  text-align: center;          /* Centrado horizontal */
+  padding: 0.5rem;             /* Espaciado interno */
+}
+
+/* ===================== */
+/* 🔹 Responsividad */
+/* ===================== */
+/* Cuando el ancho es menor a 900px (tablets) */
+@media (max-width: 900px) {
+  .container {
+    /* Cambia la disposición del grid a una sola columna */
+    grid-template-areas: 
+      "header"
+      "content"
+      "sidebar"
+      "footer";
+    grid-template-columns: 1fr;              /* Una sola columna */
+    grid-template-rows: auto auto auto auto; /* Cada sección en una fila */
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr; /* 2 tarjetas por fila */
+  }
+}
+
+/* Cuando el ancho es menor a 600px (móviles) */
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr; /* Solo 1 tarjeta por fila */
+  }
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10%;
+}
+
+.login-box {/* Contenedor de la pagina*/
+  background-color: #791c64; 
+  padding: 40px;
+  border-radius: 60px;
+  width: 350px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px; /*separacion entre hijos o demas div que existan dentro de el div principal o padre*/
+  height: 600px;
+}
+
+.login-box h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background-color: #e5cdd4;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  justify-content: space-between;
+  
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  margin: 0 10px;
+  color: #444;
+  font-size: 14px;
+  
+}
+
+.input-group .material-icons {
+  color: #791c64;
+  font-size: 20px;
+}
+
+.login-btn {
+  background-color: #d891bc;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.login-btn:hover {
+  background-color: #c77fb0;
+}
+
+.register-text {
+  font-size: 14px;
+  color: #f0f0f0;
+}
+
+.register-text a {
+  color: #35516f;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+.container_tarea {
+  display: grid; /* Usa CSS Grid para dividir la página en áreas */
+  flex-wrap: nowrap;
+  /* Define las áreas de la página: 
+     - header arriba en toda la fila
+     - sidebar a la izquierda y content a la derecha
+     - footer abajo en toda la fila */
+  grid-template-areas: 
+    "header header"
+    "sidebar content"
+    "footer footer";
+    
+  /* Sidebar ocupa 20% y content se expande al resto */
+  grid-template-columns: 20% 1fr; 
+  grid-template-rows: auto 1fr auto; /* Filas: header automático, content expansible, footer automático */
+  
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  gap: 0.5rem;   /* Espaciado entre cada área del grid */
+}
+
+/* ===================== */
+/* 🔹 Secciones principales */
+/* ===================== */
+.header_tarea {
+  grid-area: header;             /* Ubicación en el grid */
+  background-color: #7a1c7a;     /* Fondo morado oscuro */
+  color: white;                  /* Texto blanco */
+  text-align: center;            /* Texto centrado */
+  padding: 1rem;                 /* Espaciado interno */
+  
+}
+
+.sidebar_tarea {
+  grid-area: sidebar;            /* Barra lateral izquierda */
+  background-color: #d78ac4;     /* Fondo morado claro */
+  padding: 1rem;                 /* Espaciado interno */
+  color: white;                  /* Texto blanco */
+
+}
+
+
+/* Estilo para la lista de navegación (quita los puntos y espacios por defecto) */
+.sidebar_tarea ul {
+  list-style: none; /* quita los puntos de lista */
+  padding: 0;
+  margin: 0;
+}
+
+/* Estilo para cada ítem de la lista */
+.sidebar_tarea li {
+  margin-bottom: 10px; /* espacio entre los enlaces */
+}
+
+/* Estilo base para los enlaces */
+.sidebar_tarea a {
+  color: white;               /* texto blanco */
+  text-decoration: none;      /* quita el subrayado */
+  display: block;             /* hace que el enlace ocupe toda la línea */
+  padding: 8px 12px;          /* espacio interno del botón/enlace */
+  border-radius: 5px;         /* bordes redondeados */
+  transition: background-color 0.3s ease; /* transición suave al hacer hover */
+}
+
+/* Estilo cuando el mouse pasa por encima del enlace */
+.sidebar_tarea a:hover {
+  background-color: #8b2c84; /* cambia el fondo al pasar el mouse */
+  color: #fff;               /* asegura que el texto se mantenga blanco */
+}
+
+.cards_tarea{
+  display: grid;                      /* Distribuye las tarjetas en rejilla */
+  grid-template-columns: repeat(1, 1fr); /* 3 columnas iguales */
+  gap: 1rem;                          /* Espacio entre tarjetas */
+  width: 100%;                        /* Ocupa todo el ancho */
+  height: 80%;                        /* Altura relativa del contenedor */
+
+}
+
+.card_tarea {
+  background-color: #fbd9e8;          /* Fondo rosado claro */
+  border: 2px solid #d78ac4;          /* Borde morado */
+  border-radius: 20px;                /* Bordes redondeados */
+  padding: 1rem;                      /* Espaciado interno */
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1); /* Sombra ligera para efecto flotante */
+  min-height: 250px;                  /* Altura mínima de las tarjetas */
+}
+
+.card_tarea h2 {
+  margin-bottom: 0.5rem; /* Espaciado debajo del título */
+}
+
+.botones{
+  width: 60px;
+  display: inline-flex;
+ gap: 10px;
+ justify-items: center;
+}
